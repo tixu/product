@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/go-macaron/binding"
 	"github.com/tixu/productportfolio/form"
 	"github.com/tixu/productportfolio/products"
@@ -11,12 +13,14 @@ import (
 
 func main() {
 	session := connecttoDB("127.0.0.1/poducts")
+	fmt.Println(session)
 	// functions used in the  route
 	m := server.GetServer()
 	m.Use(func(ctx *macaron.Context) {
-
+		//****
+		//cloning the session to connect to the DB in the different route.
+		//*****
 		reqsession := session.Clone()
-
 		ctx.Map(reqsession.DB("product"))
 		defer reqsession.Close()
 		ctx.Next()
@@ -51,3 +55,13 @@ func connecttoDB(dbname string) *mgo.Session {
 
 	return session
 }
+
+// func getSession(ctx *macaron.Context, session *mgo.Session) {
+//****
+//cloning the session to connect to the DB in the different route.
+//*****
+//	reqsession := session.Clone()
+//	ctx.Map(reqsession.DB("product"))
+//	defer reqsession.Close()
+//	ctx.Next()
+//}
