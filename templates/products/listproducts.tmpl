@@ -1,0 +1,42 @@
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="/static/css/foundation.css" />
+    <link rel="stylesheet" href="/static/css/app.css" />
+    <script src="jquery-1.11.3.min.js"></script>
+  </head>
+<body>
+<table id="product-list" role="grid">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Owner
+        </th>
+        <th>
+          ID
+        </th>
+      </tr>
+    </thead>
+    {{ with .Products}}
+    {{ range  .}}
+      <tr>
+        <td>
+          {{ .Name}}
+      </td>
+      <td>
+        {{ .Responsible }}
+      </td>
+      <td>
+        <a href="/product/delete/{{.Name }}">delete</a>
+      </td>
+      </tr>
+     {{end}}
+     {{end}}
+    </table>
+</body>

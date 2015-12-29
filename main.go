@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/go-macaron/binding"
+	"github.com/tixu/productportfolio/categories"
 	"github.com/tixu/productportfolio/form"
 	"github.com/tixu/productportfolio/products"
 	"github.com/tixu/productportfolio/server"
@@ -38,10 +39,19 @@ func main() {
 	// grouping all the route
 
 	m.Group("/product", func() {
-		m.Get("/delete", products.Delete)
+		m.Get("/deleteAll", products.DeleteAll)
 		m.Get("/", products.ListAll)
+		m.Get("/add", products.Add)
+		m.Get("/delete/:name", products.Delete)
 		m.Post("/submit", binding.Bind(form.ProductForm{}), products.Submit)
 	})
+
+	m.Group("/category", func() {
+		m.Get("/add", categories.Add)
+		m.Get("/", categories.ListAll)
+		m.Post("/submit", binding.Bind(form.CategoryForm{}), categories.Submit)
+	})
+
 	m.Run()
 }
 
